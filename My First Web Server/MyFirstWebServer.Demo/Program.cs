@@ -1,6 +1,4 @@
-﻿using MyFirstWebServer.
-
-using MyFirstWebServer.Server;
+﻿using MyFirstWebServer.Server;
 
 namespace MyFirstWebServer.Demo
 {
@@ -8,7 +6,8 @@ namespace MyFirstWebServer.Demo
     {
         static void Main(string[] args)
         {
-           var server = new HttpServer("12")
+            var server = new HttpServer("127.0.0.1", 8080);
+            server.Start();
         }
     }
 }

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyFirstWebServer.Server.Http
+namespace MyFirstWebServer.Server.HTTPRequest
 {
-    public enum StatusCode
+    internal class Request
     {
-        OK = 200
     }
 }
