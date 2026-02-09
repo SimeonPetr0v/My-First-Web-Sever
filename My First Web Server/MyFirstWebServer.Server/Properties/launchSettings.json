@@ -1,0 +1,8 @@
+﻿{
+  "profiles": {
+    "WebServer.Server": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\palcite\\Documents\\GitHub\\My-First-Web-Sever\\My First Web Server\\"
+    }
+  }
+}

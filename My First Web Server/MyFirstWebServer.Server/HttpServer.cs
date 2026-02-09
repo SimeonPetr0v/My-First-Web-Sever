@@ -35,7 +35,7 @@ namespace MyFirstWebServer.Server
         public void WriteResponse(NetworkStream networkStream, string message)
         {
             int contentLength = Encoding.UTF8.GetByteCount(message);
-            var response = $@"HTTP/1.1
+            var response = $@"HTTP/1.1 200 OK
 Content-Type : text/plain; charset=UTF-8
 Content-Length: {contentLength}
 
@@ -43,6 +43,26 @@ Content-Length: {contentLength}
 
             var responseBytes = Encoding.UTF8.GetBytes(response);
             networkStream.Write(responseBytes);
+        }
+
+        private string ReadRequest(NetworkStream networkStream)
+        {
+            var bufferLength = 1024;
+            var buffer = new byte[bufferLength];
+
+            var requestBuilder = new StringBuilder();
+
+            int bytesRead;
+            do
+            {
+                bytesRead = networkStream.Read(buffer, 0, bufferLength);
+                requestBuilder.Append(
+                    Encoding.UTF8.GetString(buffer, 0, bytesRead)
+                );
+            }
+            while (networkStream.DataAvailable);
+
+            return requestBuilder.ToString();
         }
     }
 }
