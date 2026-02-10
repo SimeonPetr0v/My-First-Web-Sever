@@ -27,8 +27,8 @@ namespace MyFirstWebServer.Server
             {
                 var connection = serverListener.AcceptTcpClient();
                 var networkStream = connection.GetStream();
-                WriteResponse(networkStream, "Hello from my server!");
-                connection.Close();
+                var requestText = this.ReadRequest(networkStream);
+                Console.WriteLine(requestText);
             }
         }
 
@@ -47,22 +47,18 @@ Content-Length: {contentLength}
 
         private string ReadRequest(NetworkStream networkStream)
         {
-            var bufferLength = 1024;
-            var buffer = new byte[bufferLength];
-
+            var bufferLingth = 1024;
+            var buffer = new byte[bufferLingth];
             var requestBuilder = new StringBuilder();
-
-            int bytesRead;
             do
             {
-                bytesRead = networkStream.Read(buffer, 0, bufferLength);
-                requestBuilder.Append(
-                    Encoding.UTF8.GetString(buffer, 0, bytesRead)
-                );
+                var bytesRead = networkStream.Read(buffer, 0, bufferLingth);
+                requestBuilder.Append(Encoding.UTF8.GetString(buffer, 0, bytesRead));
             }
             while (networkStream.DataAvailable);
 
             return requestBuilder.ToString();
         }
+
     }
 }

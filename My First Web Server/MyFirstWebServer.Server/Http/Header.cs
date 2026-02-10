@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyFirstWebServer.Server.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,12 @@ namespace MyFirstWebServer.Server.Http
     {
         public Header(string name, string value)
         {
-            Name = name;
-            Value = value;
+            Guard.AgainstNull(name, nameof(name));
+            Guard.AgainstNull(value, nameof(value));
+
+            this.Name = name;
+            this.Value = value;
+
 
         }
         public string Name { get; set; }
