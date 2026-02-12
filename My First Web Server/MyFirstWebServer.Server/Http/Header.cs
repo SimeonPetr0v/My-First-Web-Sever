@@ -26,5 +26,11 @@ namespace MyFirstWebServer.Server.Http
 
         public string Name { get; init; }
         public string Value { get; set; }
+
+        public override string ToString()
+        {
+            return $"{this.Name}: {this.Value}";
+        }
     }
 }
+
