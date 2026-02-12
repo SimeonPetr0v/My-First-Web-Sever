@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace MyFirstWebServer.Server.Http
 {
-    public enum StatusCode
+    public class ContentType
     {
-        OK = 200,
-        Found = 302,
-        BadRequest = 400,
-        Unauthorized = 401,
-        NotFound = 404
+        public const string PlainText = "text/plain; charset=UTF-8";
+        public const string Html = "text/html; charset=UTF-8";
+
     }
 }
