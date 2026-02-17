@@ -15,7 +15,6 @@ namespace MyFirstWebServer.Server.Http
         public HeaderCollection Headers { get; private set; }
         public string Body { get; private set; }
 
-        // Ensure FromData is never null by default to avoid NREs when consumers iterate it.
         public IReadOnlyDictionary<string, string> FromData { get; private set; } = new Dictionary<string, string>();
 
         public static Request Parse(string request)
