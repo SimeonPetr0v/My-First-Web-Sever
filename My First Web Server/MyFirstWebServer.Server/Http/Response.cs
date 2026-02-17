@@ -12,6 +12,7 @@ namespace MyFirstWebServer.Server.Http
         public StatusCode StatusCode { get; init; }
         public HeaderCollection Headers { get; } = new HeaderCollection();
         public string Body { get; set; }
+        public Action<Request, Response> PreRenderAction { get; protected set; }
         public Response(StatusCode statusCode)
         {
             this.StatusCode = statusCode;

@@ -12,7 +12,6 @@ namespace MyFirstWebServer.Server
         private readonly IPAddress ipAddress;
         private readonly int port;
         private readonly TcpListener serverListener;
-
         private readonly RoutingTable routingTable;
 
         public HttpServer(string ipAddress, int port, Action<IRoutingTable> routingTableConfiguration)
@@ -48,8 +47,12 @@ namespace MyFirstWebServer.Server
                 var networkStream = connection.GetStream();
                 var requestText = this.ReadRequest(networkStream);
                 Console.WriteLine(requestText);
-                var request = Http.Request.Parse(requestText);
+                var request = Request.Parse(requestText);
                 var response = routingTable.MatchRequest(request);
+                if (response.PreRenderAction != null)
+                {
+                    response.PreRenderAction(request, response);
+                }
                 WriteResponse(networkStream, response);
                 connection.Close();
             }
@@ -74,6 +77,5 @@ namespace MyFirstWebServer.Server
 
             return requestBuilder.ToString();
         }
-
     }
 }
