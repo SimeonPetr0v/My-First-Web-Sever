@@ -13,8 +13,9 @@ namespace MyFirstWebServer.Server.Http
         public Method Method { get; private set; }
         public string Url { get; private set; }
         public HeaderCollection Headers { get; private set; }
-        public string Body { get; private set; }
 
+        public CookieCollection Cookies { get; private set; }
+        public string Body { get; private set; }
         public IReadOnlyDictionary<string, string> FromData { get; private set; } = new Dictionary<string, string>();
 
         public static Request Parse(string request)
@@ -28,6 +29,8 @@ namespace MyFirstWebServer.Server.Http
 
             var headers = ParseHeaders(lines.Skip(1));
 
+
+            var cookies = ParseCookies(headers);
             var bodyLines = lines.Skip(headers.Count + 2).ToArray();
             var body = string.Join("\r\n", bodyLines);
 
@@ -38,6 +41,7 @@ namespace MyFirstWebServer.Server.Http
                 Method = method,
                 Url = url,
                 Headers = headers,
+                Cookies = cookies,
                 Body = body,
                 FromData = form
             };
@@ -115,5 +119,30 @@ namespace MyFirstWebServer.Server.Http
 
             return formData;
         }
+
+        private static CookieCollection ParseCookies(HeaderCollection headers)
+        {
+            var cookieCollection = new CookieCollection();
+
+            if (headers.Contains(Header.Cookie))
+            {
+                var cookieHeader = headers[Header.Cookie];
+
+                var allCookies = cookieHeader.Split(';');
+
+                foreach (var cookieText in allCookies)
+                {
+                    var cookieParts = cookieText.Split('=');
+
+                    var cookieName = cookieParts[0].Trim();
+                    var cookieValue = cookieParts[1].Trim();
+
+                    cookieCollection.Add(cookieName, cookieValue);
+                }
+            }
+
+            return cookieCollection;
+        }
+
     }
 }

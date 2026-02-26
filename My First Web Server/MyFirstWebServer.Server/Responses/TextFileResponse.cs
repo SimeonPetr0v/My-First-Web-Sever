@@ -23,7 +23,7 @@ namespace MyFirstWebServer.Server.Responses
                 Body = File.ReadAllText(FileName);
                 var fileBytesCount = new FileInfo(FileName).Length;
                 this.Headers.Add(Header.ContentLength, fileBytesCount.ToString());
-                this.Headers.Add(Header.ContentDisposition, $"attachment: filename=\"{this.FileName}\"");
+                this.Headers.Add(Header.ContentDisposition, $"attachment; filename=\"{this.FileName}\"");
             }
             return base.ToString();
         }
