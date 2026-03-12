@@ -11,8 +11,7 @@ namespace MyFirstWebServer.Server.Http
     {
         public StatusCode StatusCode { get; init; }
         public HeaderCollection Headers { get; } = new HeaderCollection();
-
-        public CookieCollection Cookie { get; } = new CookieCollection();
+        public CookieCollection Cookies { get; } = new CookieCollection();
         public string Body { get; set; }
         public Action<Request, Response> PreRenderAction { get; protected set; }
         public Response(StatusCode statusCode)
@@ -30,19 +29,15 @@ namespace MyFirstWebServer.Server.Http
             {
                 result.AppendLine(header.ToString());
             }
-
-            foreach (var cookie in this.Cookie)
+            foreach (var cookie in Cookies)
             {
                 result.AppendLine($"{Header.SetCookie}: {cookie}");
             }
-
             result.AppendLine();
-
-            if (!string.IsNullOrEmpty(this.Body))
+            if (!string.IsNullOrWhiteSpace(this.Body))
             {
                 result.Append(this.Body);
             }
-
             return result.ToString();
         }
     }

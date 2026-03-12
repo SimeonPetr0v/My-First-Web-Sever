@@ -12,21 +12,32 @@ namespace MyFirstWebServer.Server.Http
         private readonly Dictionary<string, Cookie> cookies;
 
         public CookieCollection()
-            => this.cookies = new Dictionary<string, Cookie>();
+        {
+            cookies = new Dictionary<string, Cookie>();
+        }
 
         public string this[string name]
-            => this.cookies[name].Value;
-
+        {
+            get => cookies[name].Value;
+            set => cookies[name] = new Cookie(name, value);
+        }
         public void Add(string name, string value)
-            => this.cookies[name] = new Cookie(name, value);
+        {
+            cookies[name] = new Cookie(name, value);
+        }
 
         public bool Contains(string name)
-            => this.cookies.ContainsKey(name);
-
+        {
+            return cookies.ContainsKey(name);
+        }
         public IEnumerator<Cookie> GetEnumerator()
-            => this.cookies.Values.GetEnumerator();
+        {
+            return cookies.Values.GetEnumerator();
+        }
 
         IEnumerator IEnumerable.GetEnumerator()
-            => this.GetEnumerator();
+        {
+            return GetEnumerator();
+        }
     }
 }

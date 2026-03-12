@@ -99,8 +99,8 @@ namespace WebServer.demo
             }
             if (!requestHasCookies)
             {
-                response.Cookie.Add("My-Cookie", "My-Value");
-                response.Cookie.Add("My-Second-Cookie", "My-Second-Value");
+                response.Cookies.Add("My-Cookie", "My-Value");
+                response.Cookies.Add("My-Second-Cookie", "My-Second-Value");
             }
             response.Body = bodyText;
         }
