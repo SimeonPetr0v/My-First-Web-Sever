@@ -93,7 +93,7 @@ namespace MyFirstWebServer.Server
                 totalBayts += bytesRead;
                 if (totalBayts > 10 * 1024)
                 {
-                    throw new InvalidDataException("Request is to lorge.");
+                    throw new InvalidDataException("Request is too large.");
                 }
                 requestBuilder.Append(Encoding.UTF8.GetString(buffer, 0, bytesRead));
             }
